@@ -11,6 +11,7 @@
 #include "route/route.hpp"
 
 static bool shoot_state = false;
+static constexpr double encoder_dist = 2.5;
 
 static inline void do_xdrive(pros::controller_analog_e_t stc_x, pros::controller_analog_e_t stc_y, pros::controller_analog_e_t stc_r) {
   xdrive_move(
@@ -47,7 +48,7 @@ static inline void movement() {
     }
   }
   else {
-    if (motor_id.get_position() >= 2.5) {
+    if (motor_id.get_position() >= encoder_dist) {
       shoot_state = false;
       motor_id.move_velocity(-200);
     }
@@ -77,13 +78,3 @@ void opcontrol() {
     movement();
   }
 }
-/*
-GEAR TRAIN NOTES:
-
-motors: 12
-combine: 36
-reduce: 80:64:12
-
-80 / 24 = 10/3
-
-*/

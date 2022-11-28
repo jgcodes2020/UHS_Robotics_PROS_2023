@@ -8,6 +8,8 @@
 
 extern pros::Controller ctrl;
 
+extern pros::IMU imu;
+
 extern pros::Motor motor_fl;
 extern pros::Motor motor_fr;
 extern pros::Motor motor_bl;
