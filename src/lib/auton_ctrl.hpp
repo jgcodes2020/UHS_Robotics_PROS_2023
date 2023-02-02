@@ -4,6 +4,11 @@
 #include "linalg.hpp"
 #include <cstdint>
 
+namespace auton {
+  void init();
+  void move_dist(double dist, double theta, int32_t vel = 100);
+}
+
 struct RobotMotion {
   Vec3 pos;
   Vec3 vel;
