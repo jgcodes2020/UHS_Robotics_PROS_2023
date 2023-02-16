@@ -14,7 +14,7 @@ void on_center_button() {
 
 // Sort of like main()
 void initialize() {
-  selectorInit();
+  //selectorInit();
   pros::delay(2000);
 }
 
