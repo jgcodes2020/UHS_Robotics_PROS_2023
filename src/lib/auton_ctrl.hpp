@@ -6,7 +6,7 @@
 
 namespace auton {
   void init();
-  void move_dist(double dist, double theta, double vel = 100);
+  void xdrive_slide_dist(double dist, double theta, double vel = 100);
 }
 
 struct RobotMotion {

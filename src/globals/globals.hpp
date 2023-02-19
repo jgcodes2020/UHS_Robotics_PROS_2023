@@ -5,6 +5,7 @@
 #include "pros/adi.h"
 #include "pros/misc.h"
 #include "pros/motors.h"
+#include "okapi/api.hpp"
 
 extern pros::Controller ctrl;
 
@@ -21,4 +22,6 @@ extern pros::Motor motor_id;
 extern pros::Motor motor_fwa;
 extern pros::Motor motor_fwb;
 extern pros::MotorGroup motor_fw;
+
+extern okapi::ChassisControllerIntegrated cc;
 #endif

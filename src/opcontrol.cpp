@@ -58,9 +58,8 @@ static inline void movement() {
 // Runs during the driver control phase of the competition
 // Also the default if no competition switch is available
 void opcontrol() {
-  // while (true) {
-  //   movement();
-  // }
-  autonomous();
+  while (true) {
+    movement();
+  }
 }
  

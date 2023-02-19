@@ -3,7 +3,7 @@
 #include <cmath>
 
 namespace auton {
-  static void await_stop() {
+  static void xdrive_await_stop() {
     constexpr double max_err = 0.5;
     while (
       fabs(motor_fl.get_actual_velocity()) > max_err || 
@@ -15,7 +15,7 @@ namespace auton {
     }
   }
   
-  void move_dist(double dist, double theta, double vel) {
+  void xdrive_slide_dist(double dist, double theta, double vel) {
     theta -= M_PI_4;
     // adjust this constant as necessary
     dist *= 1;
@@ -34,13 +34,13 @@ namespace auton {
     motor_fr.move_velocity(0);
     motor_bl.move_velocity(0);
     motor_br.move_velocity(0);
-    auton::await_stop();
+    auton::xdrive_await_stop();
     
     motor_fl.move_relative(dx, vx);
     motor_fr.move_relative(-dy, vy);
     motor_bl.move_relative(dy, vy);
     motor_br.move_relative(-dx, vx);
-    auton::await_stop();
+    auton::xdrive_await_stop();
     
   }
   
@@ -52,13 +52,13 @@ namespace auton {
     motor_fr.move_velocity(0);
     motor_bl.move_velocity(0);
     motor_br.move_velocity(0);
-    auton::await_stop();
+    auton::xdrive_await_stop();
     
     motor_fl.move_relative(theta, vel);
     motor_fr.move_relative(theta, vel);
     motor_bl.move_relative(theta, vel);
     motor_br.move_relative(theta, vel);
-    auton::await_stop();
+    auton::xdrive_await_stop();
   }
 }
 
