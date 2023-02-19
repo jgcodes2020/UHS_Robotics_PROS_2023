@@ -23,7 +23,7 @@ pros::MotorGroup motors_l {motor_fl, motor_bl};
 pros::MotorGroup motors_r {motor_fr, motor_br};
 
 // intake
-pros::Motor motor_it(6, MOTOR_GEAR_GREEN, true, MOTOR_ENCODER_ROTATIONS);
+pros::Motor motor_itk(6, MOTOR_GEAR_GREEN, true, MOTOR_ENCODER_ROTATIONS);
 // indexer
 pros::Motor motor_ind(5, MOTOR_GEAR_GREEN, false, MOTOR_ENCODER_ROTATIONS);
 // shooter

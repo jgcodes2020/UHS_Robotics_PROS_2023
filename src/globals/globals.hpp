@@ -6,6 +6,7 @@
 #include "pros/misc.h"
 #include "pros/motors.h"
 #include "okapi/api.hpp"
+#include "pros/motors.hpp"
 
 extern pros::Controller ctrl;
 
@@ -19,7 +20,7 @@ extern pros::Motor motor_br;
 extern pros::MotorGroup motors_l;
 extern pros::MotorGroup motors_r;
 
-extern pros::Motor motor_it;
+extern pros::Motor motor_itk;
 extern pros::Motor motor_ind;
 
 extern pros::Motor motor_fwa;

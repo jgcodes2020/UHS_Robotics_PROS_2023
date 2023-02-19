@@ -8,6 +8,8 @@
 #include <cmath>
 
 namespace auton {
+  // Tolerance when waiting for a motor to stop.
+  constexpr double stop_tol = 5;
   // wheel circumference * gear ratio.
   constexpr double slide_mult = (5.0 * M_PI) * (1);
   // number of turns of leniency in position.
@@ -28,27 +30,35 @@ namespace auton {
   static inline bool within_pos_tol(pros::Motor& mt, double tol) {
     return fabs(mt.get_position() - mt.get_target_position()) <= tol;
   }
+  static inline bool is_stopped(pros::Motor& mt) {
+    return fabs(mt.get_actual_velocity()) > stop_tol;
+  }
+  
+  inline void stop() {
+    motors_l.move_velocity(0);
+    motors_r.move_velocity(0);
+    while (!(is_stopped(motor_fl) && is_stopped(motor_fr))) {
+      pros::delay(10);
+    }
+  }
   
   // Moves a given distance, using the motor encoders.
   // dist: distance to move, in inches
   // vel: maximum velocity to move at.
-  inline void slide(double dist, double vel) {
+  inline void slide(double dist, double vel = 170) {
     motors_l.move_relative(dist / slide_mult, vel);
     motors_r.move_relative(dist / slide_mult, vel);
     
     while (!(within_pos_tol(motor_fl, slide_tol) && within_pos_tol(motor_fr, slide_tol))) {
       pros::delay(10);
     }
-    
-    // stop
-    motors_l.move_velocity(0);
-    motors_r.move_velocity(0);
+    stop();
   }
   
   // Rotates to a given heading, based on IMU.
   // tdst: angle to move to, in degrees
   // mult: multiplier that affects velocity.
-  inline void rotate_to(double tdst, double mult) {
+  inline void rotate_to(double tdst, double mult = 0.6) {
     double tcur, tdiff, vel;
     // init loop
     tdst = reduce_deg_u(tdst);
@@ -63,10 +73,7 @@ namespace auton {
       motors_l.move_velocity(vel);
       motors_r.move_velocity(-vel);
     }
-    
-    // stop
-    motors_l.move_velocity(0);
-    motors_r.move_velocity(0);
+    stop();
   }
   
   // Starts or stops the flywheel.
@@ -100,6 +107,12 @@ namespace auton {
     while (!within_pos_tol(motor_ind, index_tol)) {
       pros::delay(10);
     }
+  }
+  
+  // Starts or stops the flywheel.
+  // state: if true, starts the flywheel, otherwise stops it.
+  inline void set_intake(bool state) {
+    motor_itk.move_velocity(-((int32_t) state) & GREEN_RPM);
   }
 }
 
