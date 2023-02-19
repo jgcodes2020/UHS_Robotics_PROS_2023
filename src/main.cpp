@@ -5,17 +5,19 @@
 #include "globals/globals.hpp"
 #include "pros/rtos.hpp"
 #include "route/route.hpp"
-#include "lib/auton_ctrl.hpp"
 #include "lib/robot_ctrl.hpp"
 
 // LLEMU center button, idk what this is for
 void on_center_button() {
 }
 
-// Sort of like main()
+// Run at the beginning of a competition
 void initialize() {
-  //selectorInit();
-  pros::delay(2000);
+  selectorInit();
+  adi_exp.set_value(LOW);
+  while (imu.is_calibrating()) {
+    pros::delay(10);
+  }
 }
 
 // Runs when comp switch is in "disabled"

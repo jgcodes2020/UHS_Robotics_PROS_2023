@@ -16,12 +16,15 @@ extern pros::Motor motor_fr;
 extern pros::Motor motor_bl;
 extern pros::Motor motor_br;
 
+extern pros::MotorGroup motors_l;
+extern pros::MotorGroup motors_r;
+
 extern pros::Motor motor_it;
-extern pros::Motor motor_id;
+extern pros::Motor motor_ind;
 
 extern pros::Motor motor_fwa;
 extern pros::Motor motor_fwb;
-extern pros::MotorGroup motor_fw;
+extern pros::MotorGroup motors_fw;
 
-extern okapi::ChassisControllerIntegrated cc;
+extern pros::ADIDigitalOut adi_exp;
 #endif
