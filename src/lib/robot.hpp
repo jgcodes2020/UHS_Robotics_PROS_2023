@@ -3,17 +3,30 @@
 
 #include "../globals/globals.hpp"
 #include "main.h"
+#include "math.hpp"
+#include "pros/misc.h"
 
 namespace robot {
 inline int32_t joymap(int32_t x, int32_t max) { return x * max / 128; }
 
-inline void drive(pros::controller_analog_e_t js,
-                  pros::controller_analog_e_t jr) {
-  int spd = joymap(ctrl.get_analog(js), 200);
-  int rot = joymap(ctrl.get_analog(jr), 200);
+inline void drive(int32_t js, int32_t jr, bool rev) {
+  int spd = cneg(joymap(js, 200), rev);
+  int rot = cneg(joymap(jr, 200), rev);
 
   motors_l.move_velocity(std::clamp(spd + rot, -200, 200));
   motors_r.move_velocity(std::clamp(spd - rot, -200, 200));
+}
+// shortcut for reading controller buttons.
+static inline int32_t rdctrl(pros::controller_analog_e_t axis) {
+  return ::ctrl.get_analog(axis);
+}
+// shortcut for reading controller buttons.
+static inline int32_t rdctrl(pros::controller_digital_e_t btn) {
+  return ::ctrl.get_digital(btn);
+}
+// shortcut for reading rising edges of digital buttons.
+static inline int32_t rdbtn(pros::controller_digital_e_t btn) {
+  return ::ctrl.get_digital_new_press(btn);
 }
 
 // Control mapping: press btn to go forward, rev to reverse. If both pressed,

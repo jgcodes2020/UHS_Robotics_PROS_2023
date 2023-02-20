@@ -111,7 +111,7 @@ namespace auton {
   
   // Starts or stops the flywheel.
   // state: if true, starts the flywheel, otherwise stops it.
-  inline void set_intake(bool state) {
+  inline void set_intake(int32_t state) {
     motor_itk.move_velocity(-((int32_t) state) & GREEN_RPM);
   }
 }
