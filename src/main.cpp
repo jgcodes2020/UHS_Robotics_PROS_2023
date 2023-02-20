@@ -4,8 +4,7 @@
 #include "../include/selection.h"
 #include "globals/globals.hpp"
 #include "pros/rtos.hpp"
-#include "route/route.hpp"
-#include "lib/robot_ctrl.hpp"
+#include "lib/robot.hpp"
 
 // LLEMU center button, idk what this is for
 void on_center_button() {

@@ -7,6 +7,7 @@ using namespace pros;
 
 namespace routes {
   void auton1();
+  void auton2();
   void skills();
 }
 

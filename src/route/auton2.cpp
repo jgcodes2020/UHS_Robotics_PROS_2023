@@ -1,5 +1,5 @@
 #include "route.hpp"
 
-void routes::skills() {
+void routes::auton2() {
   
 }
