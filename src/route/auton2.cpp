@@ -1,5 +1,3 @@
 #include "route.hpp"
 
-void routes::auton2() {
-  
-}
+void routes::auton2() {}

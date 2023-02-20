@@ -3,12 +3,11 @@
 
 #include "../include/selection.h"
 #include "globals/globals.hpp"
-#include "pros/rtos.hpp"
 #include "lib/robot.hpp"
+#include "pros/rtos.hpp"
 
 // LLEMU center button, idk what this is for
-void on_center_button() {
-}
+void on_center_button() {}
 
 // Run at the beginning of a competition
 void initialize() {

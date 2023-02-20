@@ -7,7 +7,7 @@
 
 pros::Controller ctrl(pros::E_CONTROLLER_MASTER);
 
-//IMU
+// IMU
 pros::IMU imu(2);
 
 // left-front motor

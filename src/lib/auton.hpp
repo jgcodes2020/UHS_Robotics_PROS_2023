@@ -1,11 +1,10 @@
 #ifndef AUTON_HPP
 #define AUTON_HPP
 
-
+#include <cmath>
 #include "../globals/globals.hpp"
 #include "math.hpp"
 #include "pros/rtos.hpp"
-#include <cmath>
 
 namespace auton {
   // Tolerance when waiting for a motor to stop.
@@ -26,14 +25,14 @@ namespace auton {
   constexpr double index_tol = 0.1 / index_mult;
   // distance to slide the indexer.
   constexpr double index_dist = 1.0 / index_mult;
-  
+
   static inline bool within_pos_tol(pros::Motor& mt, double tol) {
     return fabs(mt.get_position() - mt.get_target_position()) <= tol;
   }
   static inline bool is_stopped(pros::Motor& mt) {
     return fabs(mt.get_actual_velocity()) > stop_tol;
   }
-  
+
   inline void stop() {
     motors_l.move_velocity(0);
     motors_r.move_velocity(0);
@@ -41,20 +40,22 @@ namespace auton {
       pros::delay(10);
     }
   }
-  
+
   // Moves a given distance, using the motor encoders.
   // dist: distance to move, in inches
   // vel: maximum velocity to move at.
   inline void slide(double dist, double vel = 170) {
     motors_l.move_relative(dist / slide_mult, vel);
     motors_r.move_relative(dist / slide_mult, vel);
-    
-    while (!(within_pos_tol(motor_fl, slide_tol) && within_pos_tol(motor_fr, slide_tol))) {
+
+    while (!(
+      within_pos_tol(motor_fl, slide_tol) && within_pos_tol(motor_fr, slide_tol)
+    )) {
       pros::delay(10);
     }
     stop();
   }
-  
+
   // Rotates to a given heading, based on IMU.
   // tdst: angle to move to, in degrees
   // mult: multiplier that affects velocity.
@@ -68,21 +69,21 @@ namespace auton {
       tcur = imu.get_heading();
       // Davis's formula
       tdiff = fmin(1.0, reduce_deg(tdst - tcur) / rotate_tmax);
-      vel = tdiff * mult * GREEN_RPM;
+      vel   = tdiff * mult * GREEN_RPM;
       // Turn
       motors_l.move_velocity(vel);
       motors_r.move_velocity(-vel);
     }
     stop();
   }
-  
+
   // Starts or stops the flywheel.
   // state: if true, starts the flywheel, otherwise stops it.
   inline void set_flywheel(bool state) {
     // bit hacking: false = 0, true = 600
     motors_fw.move_velocity(-((int32_t) state) & BLUE_RPM);
   }
-  
+
   // Waits for the flywheel to spin up.
   // spd: the threshold to pass.
   // timer_len: time (in 10ms increments) to wait for speed to stabilize.
@@ -95,7 +96,7 @@ namespace auton {
         ++timer;
     } while (timer > 0);
   }
-  
+
   // Fires the indexer.
   inline void indexer_once() {
     double curr_pos = motor_ind.get_position();
@@ -108,13 +109,12 @@ namespace auton {
       pros::delay(10);
     }
   }
-  
+
   // Starts or stops the flywheel.
   // state: if true, starts the flywheel, otherwise stops it.
   inline void set_intake(int32_t state) {
     motor_itk.move_velocity(-((int32_t) state) & GREEN_RPM);
   }
-}
-
+}  // namespace auton
 
 #endif

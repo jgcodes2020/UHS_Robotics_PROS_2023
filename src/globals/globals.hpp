@@ -2,10 +2,10 @@
 #define GLOBALS_HPP_INCLUDED
 
 #include "main.h"
+#include "okapi/api.hpp"
 #include "pros/adi.h"
 #include "pros/misc.h"
 #include "pros/motors.h"
-#include "okapi/api.hpp"
 #include "pros/motors.hpp"
 
 extern pros::Controller ctrl;

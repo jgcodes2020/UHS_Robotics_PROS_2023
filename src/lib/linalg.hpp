@@ -74,7 +74,7 @@ inline Vec3 rotate(const Vec3& a, const Quat& b) {
   Quat inv_b = conj(b);
   Quat q_a {0, a.x, a.y, a.z};
   Quat res = b * q_a * inv_b;
-  
+
   return {res.i, res.j, res.k};
 }
 

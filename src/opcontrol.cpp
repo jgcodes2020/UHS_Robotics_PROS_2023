@@ -14,7 +14,8 @@ bool drive_rev = false;
 
 static inline void movement() {
   // drivetrain
-  drive_rev = (drive_rev || robot::rdbtn(DIGITAL_B)) && !robot::rdbtn(DIGITAL_X);
+  drive_rev =
+    (drive_rev || robot::rdbtn(DIGITAL_B)) && !robot::rdbtn(DIGITAL_X);
   robot::drive(
     robot::rdctrl(ANALOG_LEFT_Y), robot::rdctrl(ANALOG_RIGHT_X), drive_rev
   );
