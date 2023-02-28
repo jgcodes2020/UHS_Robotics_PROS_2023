@@ -20,7 +20,9 @@ extern pros::Motor motor_br;
 extern pros::MotorGroup motors_l;
 extern pros::MotorGroup motors_r;
 
-extern pros::Motor motor_itk;
+extern pros::Motor motor_itka;
+extern pros::Motor motor_itkb;
+extern pros::MotorGroup motors_itk;
 extern pros::Motor motor_ind;
 
 extern pros::Motor motor_fwa;

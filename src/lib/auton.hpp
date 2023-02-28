@@ -24,7 +24,7 @@ namespace auton {
   // tolerance on indexer movement.
   constexpr double index_tol = 0.1 / index_mult;
   // distance to slide the indexer.
-  constexpr double index_dist = 1.0 / index_mult;
+  constexpr double index_dist = 0.25;
 
   inline bool within_pos_tol(pros::Motor& mt, double tol) {
     return fabs(mt.get_position() - mt.get_target_position()) <= tol;
@@ -120,19 +120,15 @@ namespace auton {
   inline void indexer_once() {
     double curr_pos = motor_ind.get_position();
     motor_ind.move_relative(index_dist, 200);
-    while (!within_pos_tol(motor_ind, index_tol)) {
-      pros::delay(10);
-    }
+    pros::delay(350);
     motor_ind.move_absolute(curr_pos, 200);
-    while (!within_pos_tol(motor_ind, index_tol)) {
-      pros::delay(10);
-    }
+    pros::delay(500);
   }
 
   // Starts or stops the intake.
   // state: 1, 0, or -1 (forward, stopped, backwards)
   inline void set_intake(int32_t state) {
-    motor_itk.move_velocity(state * GREEN_RPM);
+    motors_itk.move_velocity(state * GREEN_RPM);
   }
 }  // namespace auton
 
